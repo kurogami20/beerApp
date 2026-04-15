@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Testing
+*test.ts
+*test.tsx
+*spec.ts
+*spec.tsx
+__tests__
+__mocks__
