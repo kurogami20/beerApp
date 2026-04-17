@@ -129,3 +129,21 @@
 		@apply font-sans;
 	}
 }
+
+@theme {
+	--animate-move: move 120s ease-in-out infinite;
+
+	@keyframes move {
+		0%,
+		100% {
+			transform: translateX(0);
+		}
+		50% {
+			transform: translateX(100px);
+		}
+
+		80% {
+			transform: translateX(150px);
+		}
+	}
+}

@@ -9,8 +9,10 @@ const beerService = {
 		const response = await instance.get(`/beers/${id}`);
 		return response.data;
 	},
-	async getBeers(page: number) {
-		const response = await instance.get(`/beers?page=${page}`);
+	async getBeers(page: number|undefined, ids: number[] | undefined) {
+		const response = await instance.get(
+			`/beers?page=${page}${ids && '&'}`,
+		);
 		return response.data;
 	},
 };
