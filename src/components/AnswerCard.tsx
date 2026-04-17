@@ -8,7 +8,7 @@ interface AnswerCardProps {
 
 const AnswerCard = ({ data }: AnswerCardProps) => {
 	return (
-		<Card className="bg-fuchsia-700/50">
+		<Card className="bg-fuchsia-700/50 w-full ">
 			<CardContent>
 				<p>{data?.name}</p>
 			</CardContent>

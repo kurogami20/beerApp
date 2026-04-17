@@ -8,7 +8,7 @@ interface AnswerChoiceProps {
 
 const AnswerChoice = ({ answers }: AnswerChoiceProps) => {
 	return (
-		<div>
+		<div className="flex flex-col items-center w-full gap-4 ">
 			{answers.map((answer) => (
 				<AnswerCard key={answer.id} data={answer} />
 			))}

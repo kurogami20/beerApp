@@ -10,17 +10,10 @@ import { useEffect, useState } from 'react';
 const QuizPage = () => {
 
 	useEffect(()=>{
-	// on va déterminer la page des bières contenant les mauvaise réponses entre 1 et 14
-	const randomPage = Math.floor(Math.random() * 14) + 1;
-	
-	// on va déterminer les 3 mauvaises réponses à partir de la page aléatoire
-	// pour cela on va récupérer les bières de la page aléatoire et on va prendre  3  bières random parmi elles
-	setrandomPage(randomPage)
-	
-	// en fonction du numéro de page obtenu on sélectionne des ids
+
 	const randomIds = () => {
-		const minId = (randomPage - 1) * 30 + 1;
-		const maxId = Math.min(randomPage * 30, 415);
+		const minId = 1;
+		const maxId = 415;
 		return Array.from(
 			{ length: 3 },
 			() => Math.floor(Math.random() * (maxId - minId + 1)) + minId,
@@ -28,26 +21,19 @@ const QuizPage = () => {
 	};
 	setrandomIds(randomIds())
     
-	// on va mélanger la réponse aux fausses réponses pour ne pas toujours avoir la réponse à la même position dans un tableau de 4 éléments
-	
-	
-	
 	}, [])
 	const useBeerToGuess = useAtomValue(beerToGuessAtom);
 	// On récupère les données de la bière à deviner de manière aleatoire
 	const { data, status } = useRandomBeer();
 	
 	const [randomIds, setrandomIds]=useState<number[]>()
-	
-	const [randomPage, setrandomPage] = useState<number>()
-	
-	console.log(data);
 
 	const { data: beersData, status: beersStatus } = useBeers({
-		page: randomPage,
+		page: 1,
 		ids: randomIds,
 	});
 
+// on va mélanger la réponse aux fausses réponses pour ne pas toujours avoir la réponse à la même position dans un tableau de 4 éléments
 	const answers = beersData
 		? [...beersData, useBeerToGuess].sort(() => Math.random() - 0.5)
 		: [];
@@ -64,7 +50,7 @@ const QuizPage = () => {
 			{beersStatus === 'success' && answers && (
 				<AnswerChoice answers={answers} />
 			)}
-			{answers! && <p>erreur</p>}
+			{!answers && <p>erreur</p>}
 		</div>
 	);
 };

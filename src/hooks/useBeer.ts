@@ -21,7 +21,7 @@ export const useBeerById = (id: number) => {
 	});
 };
 
-export const useBeers = (params: { page: number|undefined; ids?: number[] }) => {
+export const useBeers = (params: { page: number; ids?: number[] }) => {
 	return useQuery({
 		queryKey: [keys.beers, params],
 		queryFn: () => beerService.getBeers(params.page, params.ids),
