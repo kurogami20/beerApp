@@ -1,8 +1,14 @@
 import type { Beer } from '@/@types';
-import { Card, CardContent } from './ui/card';
+import { Card, CardContent, CardFooter } from './ui/card';
 import { beerToGuessAtom } from '@/storage/beerToGuess';
 import { useSetAtom } from 'jotai';
 import { useEffect } from 'react';
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from './ui/accordion';
 
 interface QuestionQuizProps {
 	data: Beer;
@@ -15,10 +21,53 @@ const QuestionQuiz = ({ data }: QuestionQuizProps) => {
 		setBeerToGuess(data);
 	}, [data, setBeerToGuess]);
 	return (
-		<Card className="bg-(--main)/50">
+		<Card className="bg-(--yellow2) w-full h-fit overflow-auto">
 			<CardContent>
-				<p>{data.description}</p>
+				<p className="text-smmb-4">{data.description}</p>
+
+				<Accordion type="single" collapsible className="w-full">
+					<AccordionItem value="food-pairing">
+						<AccordionTrigger className="w-full text-left text-normal font-bold">
+							This is a beer that goes well with :
+						</AccordionTrigger>
+						<AccordionContent>
+							{data.food_pairing.map((food) => (
+								<ul key={food} className="text-sm list-disc pl-5">
+									<li>{food}</li>
+								</ul>
+							))}
+						</AccordionContent>
+					</AccordionItem>
+					<AccordionItem value="Ingredients">
+						<AccordionTrigger className="w-full text-left text-normal font-bold">
+							This a beer that is made with the following ingredients :
+						</AccordionTrigger>
+						<AccordionContent>
+							<span className="font-semibold ">Malt :</span>
+							<ul className="text-sm list-disc pl-5 mt-2 mb-2">
+								{data.ingredients.malt.map((malt, index) => (
+									<li key={malt.name}>{malt.name}</li>
+								))}
+							</ul>
+							<span className="font-semibold ">Hops :</span>
+							<ul className="text-sm list-disc pl-5 mt-2">
+								{/* suprimmer les doublons */}
+								{data.ingredients.hops
+									.filter(
+										(hop, index, self) =>
+											index === self.findIndex((h) => h.name === hop.name),
+									)
+									.map((hop) => (
+										<li key={hop.name}>{hop.name}</li>
+									))}
+							</ul>
+						</AccordionContent>
+					</AccordionItem>
+				</Accordion>
 			</CardContent>
+			<CardFooter className="">
+				Can you guess the name of this beer ?
+			</CardFooter>
 		</Card>
 	);
 };

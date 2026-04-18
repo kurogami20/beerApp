@@ -50,6 +50,8 @@
 
 :root {
 	--main: oklch(82.579% 0.16671 79.117);
+	--yellow2: #fedb8d;
+	--purple2: #d37fdb;
 	--background: oklch(1 0 0);
 	--foreground: oklch(0.145 0 0);
 	--card: oklch(1 0 0);

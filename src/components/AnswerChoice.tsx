@@ -8,9 +8,10 @@ interface AnswerChoiceProps {
 
 const AnswerChoice = ({ answers }: AnswerChoiceProps) => {
 	return (
-		<div className="flex flex-col items-center w-full gap-4 ">
-			{answers.map((answer) => (
-				<AnswerCard key={answer.id} data={answer} />
+		<div className="flex flex-col items-center w-full gap-4 z-2">
+			{answers.map((answer, index) => (
+				// biome-ignore lint/suspicious/noArrayIndexKey: <Pas idéal mais ça permet d'éviter une erreur de lecture d'id, fix temporaire>
+				<AnswerCard key={index} data={answer} />
 			))}
 		</div>
 	);
