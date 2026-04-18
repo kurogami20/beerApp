@@ -21,12 +21,30 @@ const QuestionQuiz = ({ data }: QuestionQuizProps) => {
 		setBeerToGuess(data);
 	}, [data, setBeerToGuess]);
 	return (
-		<Card className="bg-(--yellow2) w-full h-fit overflow-auto">
+		<Card className="bg-(--yellow2) w-full h-fit overflow-auto z-2 ">
 			<CardContent>
-				<p className="text-smmb-4">{data.description}</p>
+				<Accordion
+					type="single"
+					collapsible
+					className="w-full "
+					defaultValue="description"
+				>
+					<AccordionItem
+						value="description"
+						className="border-b border-black/20"
+					>
+						<AccordionTrigger className="w-full text-left text-normal font-bold">
+							Description of the beer :
+						</AccordionTrigger>
+						<AccordionContent>
+							<p className="text-sm">{data.description}</p>
+						</AccordionContent>
+					</AccordionItem>
 
-				<Accordion type="single" collapsible className="w-full">
-					<AccordionItem value="food-pairing">
+					<AccordionItem
+						className="border-b border-black/20"
+						value="food-pairing"
+					>
 						<AccordionTrigger className="w-full text-left text-normal font-bold">
 							This is a beer that goes well with :
 						</AccordionTrigger>

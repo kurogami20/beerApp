@@ -18,7 +18,7 @@ const Home = () => {
 			<img
 				src="Frame_2.svg"
 				alt=""
-				className="absolute z-1 opacity-60 h-dvh scale-800  sm:scale-200  animate-(--animate-move) repeat-infinite"
+				className="absolute z-1 opacity-60 h-dvh scale-800  sm:scale-200 "
 			/>
 
 			<img src="Logo.svg" alt="Logo" className="max-w-full w-65 sm:w-120 z-2" />
