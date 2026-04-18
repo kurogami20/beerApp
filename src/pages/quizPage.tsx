@@ -2,6 +2,8 @@ import type { Beer } from '@/@types';
 import AnswerChoice from '@/components/AnswerChoice';
 import QuestionQuiz from '@/components/questionQuiz';
 import Result from '@/components/Result';
+import AnswerChoiceSkeleton from '@/components/skeletons/AnswerChoiceSkeleton';
+import QuestionQuizSkeleton from '@/components/skeletons/QuestionQuizSkeleton';
 import H1 from '@/components/text/h1';
 import { useBeers, useRandomBeer } from '@/hooks/useBeer';
 import { beerChosenAtom } from '@/storage/beerChosen';
@@ -85,11 +87,11 @@ const QuizPage = () => {
 					className="z-2  text-white text-4xl sm:text-6xl text-stroke-base "
 					text="Guess the Beer"
 				/>
-				{status === 'pending' && <p>Loading question...</p>}
+				{status === 'pending' && <QuestionQuizSkeleton />}
 				{status === 'error' && <p>Error fetching question data.</p>}
 				{status === 'success' && data && <QuestionQuiz data={data} />}
 
-				{beersStatus === 'pending' && <p>Loading answers...</p>}
+				{beersStatus === 'pending' && <AnswerChoiceSkeleton />}
 				{beersStatus === 'error' && <p>Error fetching answers data.</p>}
 				{beersStatus === 'success' && answers && (
 					<AnswerChoice answers={answers} />

@@ -13,7 +13,7 @@ const AnswerCard = ({ data }: AnswerCardProps) => {
 	return (
 		<Card
 			onClick={() => setBeerChosen(data)}
-			className="bg-(--purple2) w-full  cursor-pointer hover:bg-(--purple2)/50 transition-colors duration-300"
+			className="bg-(--purple2) w-full  cursor-pointer hover:bg-(--purple2)/50 transition-colors duration-300 flex  justify-center"
 		>
 			<CardContent>
 				<p className="font-semibold">{data?.name}</p>
