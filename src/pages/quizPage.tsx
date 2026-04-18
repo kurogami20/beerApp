@@ -1,11 +1,13 @@
 import type { Beer } from '@/@types';
 import AnswerChoice from '@/components/AnswerChoice';
 import QuestionQuiz from '@/components/questionQuiz';
+import Result from '@/components/Result';
 import H1 from '@/components/text/h1';
 import { useBeers, useRandomBeer } from '@/hooks/useBeer';
 import { beerChosenAtom } from '@/storage/beerChosen';
 import { beerToGuessAtom } from '@/storage/beerToGuess';
-import { useAtomValue } from 'jotai';
+import displayResultAtom from '@/storage/displayResult';
+import { atom, useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
@@ -39,35 +41,50 @@ const QuizPage = () => {
 		: [];
 
 	const beerChosen = useAtomValue(beerChosenAtom);
+	const setBeerChosen = useSetAtom(beerChosenAtom);
+
+	const [displayResult, setDisplayResult] = useAtom(displayResultAtom);
+
+	const [result, setResult] = useState<string>('Correct!');
 
 	if (beerChosen) {
 		// on affiche une alerte pour dire si la réponse est bonne ou pas
 		if (beerChosen.id === useBeerToGuess?.id) {
-			alert('Correct !');
-			if (window.confirm('Do you want to play again ?')) {
-				navigate(0);
-			} else {
-				navigate('/');
-			}
+			setResult('Correct!');
+			setBeerChosen(null);
+			setDisplayResult(true);
+			// setBeerToGuess(null);
 		} else {
-			alert(`Wrong ! The correct answer was ${useBeerToGuess?.name}`);
-			if (window.confirm('Do you want to play again ?')) {
-				navigate(0);
-			} else {
-				navigate('/');
-			}
+			setResult('Wrong!');
+			setBeerChosen(null);
+			setDisplayResult(true);
 		}
 	}
 
 	return (
 		<div className="relative max-h-dvh w-full flex items-center justify-center overflow-hidden">
+			{displayResult && (
+				<>
+					{useBeerToGuess && <Result message={result} beer={useBeerToGuess} />}
+					<div className="absolute bottom-0 left-0 right-0 z-3 h-full  bg-black opacity-50 " />
+				</>
+			)}
 			<img
 				src="Frame_2.svg"
 				alt=""
-				className="absolute z-1 opacity-60 h-dvh scale-800  sm:scale-200  invert-50"
+				className="absolute z-1 opacity-60 h-dvh scale-800  sm:scale-200  invert-50 "
 			/>
-			<div className="flex flex-col items-center justify-start h-dvh gap-4 mx-5  z-2 sm:mx-50 overflow-auto  mt-10 w-full">
-				<H1 className="z-2" text="Guess the Beer" />
+			<div
+				className={
+					displayResult
+						? 'flex flex-col items-center justify-start h-dvh gap-4 mx-5  z-2 sm:mx-50 overflow-auto  mt-10 w-full grayscale'
+						: 'flex flex-col items-center justify-start h-dvh gap-4 mx-5  z-2 sm:mx-50 overflow-auto  mt-10 w-full'
+				}
+			>
+				<H1
+					className="z-2  text-white text-4xl sm:text-6xl text-stroke-base "
+					text="Guess the Beer"
+				/>
 				{status === 'pending' && <p>Loading question...</p>}
 				{status === 'error' && <p>Error fetching question data.</p>}
 				{status === 'success' && data && <QuestionQuiz data={data} />}

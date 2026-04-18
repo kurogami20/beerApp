@@ -16,7 +16,7 @@ const AnswerCard = ({ data }: AnswerCardProps) => {
 			className="bg-(--purple2) w-full  cursor-pointer hover:bg-(--purple2)/50 transition-colors duration-300"
 		>
 			<CardContent>
-				<p>{data?.name}</p>
+				<p className="font-semibold">{data?.name}</p>
 			</CardContent>
 		</Card>
 	);

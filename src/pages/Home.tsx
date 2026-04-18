@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router';
 import { Button } from '@/components/ui/button';
 import H2 from '@/components/text/h2';
+import H1 from '@/components/text/h1';
 
 const Home = () => {
 	const navigate = useNavigate();
@@ -22,7 +23,7 @@ const Home = () => {
 			/>
 
 			<img src="Logo.svg" alt="Logo" className="max-w-full w-65 sm:w-120 z-2" />
-			<H2 className="z-2" text="Welcome to  Beer Guess" />
+			<H1 className="z-2" text="Welcome to  Beer Guess" />
 			<Button variant="main" size="default" className="z-2" onClick={beginQuiz}>
 				Start quiz
 			</Button>
